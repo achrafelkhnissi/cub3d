@@ -6,7 +6,7 @@
 #    By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/03 10:15:17 by ael-khni          #+#    #+#              #
-#    Updated: 2022/06/03 10:15:18 by ael-khni         ###   ########.fr        #
+#    Updated: 2022/06/04 11:40:19 by ael-khni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,15 +16,16 @@ CC			= cc
 FLAGS		= -Wall -Wextra -Werror
 RM			= rm -rf
 
-INCLUDES	= -I includes -I /usr/local/include
+INCLUDES	= -I /usr/local/include
 LIBMLX		= -L /usr/local/lib
 
 UTILS		= $(addprefix utils/, )
-FILES		= $(addprefix srcs/, $(UTILS))
+FILES		= $(addprefix srcs/, cub3d $(UTILS))
 
 SRC			= $(FILES:=.c)
 OBJ			= $(FILES:=.o)
 HEADER		= $(addprefix includes/, cub3d.h)
+CUB3DHEADER = -I includes
 
 #Colors:
 GREEN		=	\e[92;5;118m
@@ -44,7 +45,7 @@ all: $(NAME)
 
 $(NAME):  $(OBJ) $(HEADER)
 	@printf "$(CURSIVE)$(GRAY) 	- Compiling $(NAME)... $(RESET)\n"
-	@ $(CC) $(OBJ) $(INCLUDE) $(LIBMLX) $(OPTS) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	@ $(CC) $(OBJ) $(INCLUDES) $(CUB3DHEADER) $(LIBMLX) $(OPTS) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 	@printf "$(_SUCCESS) $(GREEN)- Executable ready.\n$(RESET)"
 
 %.o: %.c $(HEADER)
