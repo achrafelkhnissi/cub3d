@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 11:39:12 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/04 13:24:35 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/04 14:05:03 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,49 @@ int	ft_close(t_program *game)
 	return (0);
 }
 
+#define screenWidth 640
+#define screenHeight 480
+
+
 void	ft_new_window(t_program *game)
 {
-	game->win_ptr = mlx_new_window(game->mlx, 1000, 1000, "cub3D");
+	game->win_ptr = mlx_new_window(game->mlx, screenWidth, screenHeight, "cub3D");
 	mlx_hook(game->win_ptr, WIN_CLOSE, 0, ft_close, game);
 }
 
+int rgbToInt(int r, int g, int b) {
+    return (r << 16) | (g << 8) | b;
+}
+
+void	drawCeiling(t_program game)
+{
+	int	i;
+	int	y;
+
+	i = 0;
+	while (i < screenHeight / 2)
+	{
+		y = 0;
+		while (y < screenWidth)
+			mlx_pixel_put(game.mlx, game.win_ptr, y++, i, rgbToInt(105, 105, 105));
+		i++;
+	}
+}
+
+void	drawFloor(t_program game)
+{
+	int	i;
+	int	y;
+
+	i = (screenHeight / 2);
+	while (i < screenHeight)
+	{
+		y = 0;
+		while (y < screenWidth)
+			mlx_pixel_put(game.mlx, game.win_ptr, y++, i, rgbToInt(192, 192, 192));
+		i++;
+	}
+}
 
 int	main(void)
 {
@@ -61,9 +98,8 @@ int	main(void)
 
 	gamePtr.mlx = mlx_init();
 	ft_new_window(&gamePtr);
-	for (int i = 0; i < 1000; i++) {
-		mlx_pixel_put(gamePtr.mlx, gamePtr.win_ptr, i, i, 0x00FF0000);
-	}
+	drawCeiling(gamePtr);
+	drawFloor(gamePtr);
 	mlx_loop(gamePtr.mlx);
 	return (0);
 }

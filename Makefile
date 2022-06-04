@@ -6,7 +6,7 @@
 #    By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/03 10:15:17 by ael-khni          #+#    #+#              #
-#    Updated: 2022/06/04 11:40:19 by ael-khni         ###   ########.fr        #
+#    Updated: 2022/06/04 14:08:09by ael-khni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,14 @@ LIBMLX		= -L /usr/local/lib
 
 UTILS		= $(addprefix utils/, )
 FILES		= $(addprefix srcs/, cub3d $(UTILS))
+OBJFILES		= $(addprefix .objFiles/, cub3d $(UTILS))
 
 SRC			= $(FILES:=.c)
-OBJ			= $(FILES:=.o)
+OBJ			= $(OBJFILES:=.o)
 HEADER		= $(addprefix includes/, cub3d.h)
 CUB3DHEADER = -I includes
+
+OBJDIR = .objFiles
 
 #Colors:
 GREEN		=	\e[92;5;118m
@@ -41,7 +44,7 @@ endif
 
 .PHONY: all clean fclean re bonus norm
 
-all: $(NAME)
+all: $(NAME) objdir
 
 $(NAME):  $(OBJ) $(HEADER)
 	@printf "$(CURSIVE)$(GRAY) 	- Compiling $(NAME)... $(RESET)\n"
@@ -49,8 +52,12 @@ $(NAME):  $(OBJ) $(HEADER)
 	@printf "$(_SUCCESS) $(GREEN)- Executable ready.\n$(RESET)"
 
 %.o: %.c $(HEADER)
-	@printf "$(CURSIVE)$(GRAY) 	- Making object file $(notdir $@) from source file $(notdir $<) ... $(RESET)\n"
+	@ printf "$(CURSIVE)$(GRAY) 	- Making object file $@ from source file $< ... $(RESET)\n"
+	@#printf "$(CURSIVE)$(GRAY) 	- Making object file $(notdir $@) from source file $(notdir $<) ... $(RESET)\n"
 	@ $(CC) -Wall -Wextra -Werror $(OPTS) -c $< -o $@
+
+objdir:
+	@ mkdir $(OBJDIR)
 
 norm:
 	@printf "$(CURSIVE)$(GRAY)"
@@ -58,7 +65,7 @@ norm:
 	@printf "$(RESET)"
 
 clean:
-	@ $(RM) $(OBJ)
+	@ $(RM) $(OBJDIR) $(OBJ)
 	@printf "$(CURSIVE)$(GRAY)	- Removing object files ... $(RESET)\n"
 	@printf "$(YELLOW)    - Object files removed.$(RESET)\n"
 
