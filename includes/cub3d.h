@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:13:41 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/04 13:26:39 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/04 13:27:51 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@
 # define SQUARE 32
 
 /* -------- COLORS -------- */
-# define RED "0x00FF0000"
-# define GREEN "0x0000FF00"
-# define BLUE "0x000000FF"
+# define RED 0x00FF0000
+# define GREEN 0x0000FF00
+# define BLUE 0x000000FF
 
 #endif
