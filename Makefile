@@ -21,10 +21,10 @@ LIBMLX		= -L /usr/local/lib
 
 UTILS		= $(addprefix utils/, )
 FILES		= $(addprefix srcs/, cub3d $(UTILS))
-OBJFILES		= $(addprefix .objFiles/, cub3d $(UTILS))
+#OBJFILES		= $(addprefix .objFiles/, cub3d $(UTILS))
 
 SRC			= $(FILES:=.c)
-OBJ			= $(OBJFILES:=.o)
+OBJ			= $(addprefix $(OBJDIR)/, $(FILES:=.o))
 HEADER		= $(addprefix includes/, cub3d.h)
 CUB3DHEADER = -I includes
 
@@ -44,20 +44,18 @@ endif
 
 .PHONY: all clean fclean re bonus norm
 
-all: $(NAME) objdir
+all: $(NAME)
 
-$(NAME):  $(OBJ) $(HEADER)
+$(NAME): $(OBJ) $(HEADER)
 	@printf "$(CURSIVE)$(GRAY) 	- Compiling $(NAME)... $(RESET)\n"
-	@ $(CC) $(OBJ) $(INCLUDES) $(CUB3DHEADER) $(LIBMLX) $(OPTS) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	@$(CC) $(OBJ) $(INCLUDES) $(CUB3DHEADER) $(LIBMLX) $(OPTS) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 	@printf "$(_SUCCESS) $(GREEN)- Executable ready.\n$(RESET)"
 
-%.o: %.c $(HEADER)
+$(OBJDIR)/%.o: %.c $(HEADER)
+	@mkdir -p $(dir $@)
 	@ printf "$(CURSIVE)$(GRAY) 	- Making object file $@ from source file $< ... $(RESET)\n"
 	@#printf "$(CURSIVE)$(GRAY) 	- Making object file $(notdir $@) from source file $(notdir $<) ... $(RESET)\n"
-	@ $(CC) -Wall -Wextra -Werror $(OPTS) -c $< -o $@
-
-objdir:
-	@ mkdir $(OBJDIR)
+	@$(CC) -Wall -Wextra -Werror $(OPTS) -c $< -o $@
 
 norm:
 	@printf "$(CURSIVE)$(GRAY)"
