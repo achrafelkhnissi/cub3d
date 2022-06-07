@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fathjami <fathjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:13:41 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/04 13:27:51 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/07 14:00:07 by fathjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,40 @@
 # define GREEN 0x0000FF00
 # define BLUE 0x000000FF
 
+
+typedef struct s_program
+{
+	void		*mlx;
+	void		*win_ptr;
+	void		*img_ptr;
+	// t_map		map;
+	int			screen_w;
+	int 		screen_h;
+	int			step_x;
+	int			step_y;
+	int			hit;
+	int			side;
+	int			map_x;
+	int			map_y;
+	int			lineHeight;
+	int			drawStart;
+	int			drawEnd;
+	double		pos_x;
+	double		pos_y;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
+	double		camera_x;
+	double		raydir_x;
+	double		raydir_y;
+	double		deltaDist_x;
+	double		deltaDist_y;
+	double		sideDist_x;
+	double		sideDist_y;
+	double		perpWallDist;
+	
+}				t_program;
+
+int lunch_game(void *ptr);
 #endif

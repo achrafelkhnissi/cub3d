@@ -28,7 +28,7 @@ OBJ			= $(addprefix $(OBJDIR)/, $(FILES:=.o))
 HEADER		= $(addprefix includes/, cub3d.h)
 CUB3DHEADER = -I includes
 
-OBJDIR = .objFiles
+OBJDIR = .objFiles 
 
 #Colors:
 GREEN		=	\e[92;5;118m
