@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fathjami <fathjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:13:41 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/07 14:00:07 by fathjami         ###   ########.fr       */
+/*   Updated: 2022/06/08 06:34:02 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,20 @@
 # define GREEN 0x0000FF00
 # define BLUE 0x000000FF
 
+
+typedef struct s_vector
+{
+	int	x;
+	int	y;
+} t_vector;
+
+typedef	struct s_map
+{
+	char	**map;
+	int		col;
+	int		row;
+	t_vector player;
+}	t_map;
 
 typedef struct s_program
 {
