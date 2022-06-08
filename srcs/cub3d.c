@@ -3,47 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fathjami <fathjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 11:39:12 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/08 12:32:41 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/08 16:19:06 by fathjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-#define mapWidth 24
-#define mapHeight 24
-#define screenWidth 640
-#define screenHeight 480
 
-int worldMap[mapWidth][mapHeight]=
-{
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,1,0,1,0,1,0,0,0,1},
-  {1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,1},
-  {1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,1,1,0,1,1,0,0,0,0,1,0,1,0,1,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,14,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-};
+
 void	ft_free(t_program *game, char *msg)
 {
 	int	i;
@@ -114,24 +84,24 @@ int	main(int ac, char **av)
 {
 	t_program game_ptr;
 
-	if (ac != 2)
+	(void) av;
+	if (!ac)
 		return (EXIT_FAILURE);
-	game_ptr.map.filename = ft_strdup(av[1]); // TODO: free
-	get_cub_content(&game_ptr);
+	// game_ptr.map.filename = ft_strdup(av[1]); // TODO: free
+	// get_cub_content(&game_ptr);
 	// print_map(game_ptr.cub_content);
-	get_colors(&game_ptr);
-	get_map(&game_ptr);
-	print_map(game_ptr.map.map);
+	// get_colors(&game_ptr);
+	// get_map(&game_ptr);
+	// print_map(game_ptr.map.map);
 
-	/*
-	gamePtr.screen_h = 480;
-	gamePtr.screen_w = 640;
-	gamePtr.mlx = mlx_init();
-	ft_new_window(&gamePtr);
-	drawCeiling(gamePtr);
-	drawFloor(gamePtr);
-	mlx_loop_hook(gamePtr.mlx, lunch_game, &gamePtr);
-	mlx_loop(gamePtr.mlx);
-	*/
+	game_ptr.screen_h = 480;
+	game_ptr.screen_w = 640;
+	game_ptr.mlx = mlx_init();
+	ft_new_window(&game_ptr);
+	drawCeiling(game_ptr);
+	drawFloor(game_ptr);
+	// lunch_game(&game_ptr)÷;
+	mlx_loop_hook(game_ptr.mlx, lunch_game, &game_ptr);
+	mlx_loop(game_ptr.mlx);
 	return (0);
 }

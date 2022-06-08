@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fathjami <fathjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:13:41 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/08 12:31:34 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/08 14:25:42 by fathjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
+#define mapWidth 24
+#define mapHeight 24
+#define screenWidth 640
+#define screenHeight 480
+
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -20,6 +26,7 @@
 # include <sys/errno.h>
 # include <string.h>
 # include "mlx.h"
+# include <math.h>
 
 # define EQUAL 0
 
@@ -100,6 +107,7 @@ typedef struct s_program
 	int			line_height;
 	int			draw_start;
 	int			draw_end;
+	int			x;
 	double		pos_x;
 	double		pos_y;
 	double		dir_x;
@@ -134,5 +142,5 @@ void	print_map(char **content);
 void	get_map_textures(t_program *game_ptr);
 void	get_colors(t_program *ptr);
 void	get_map(t_program *ptr);
-
+int	rgb_to_int(int r, int g, int b);
 #endif

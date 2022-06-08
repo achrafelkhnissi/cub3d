@@ -21,9 +21,9 @@ LIBMLX		= -L /usr/local/lib
 
 OBJDIR = .objFiles
 
-PARSER		= $(addprefix parser/, parser)
-UTILS		= $(addprefix utils/, gnl ft_strlen ft_strdup ft_split ft_strcmp ft_itoa ft_atoi)
-# DDA			= $(addprefix DDA/, luncher)
+# PARSER		= $(addprefix parser/, parser)
+# UTILS		= $(addprefix utils/, gnl ft_strlen ft_strdup ft_split ft_strcmp ft_itoa ft_atoi)
+ DDA			= $(addprefix DDA/, luncher)
 FILES		= $(addprefix srcs/, cub3d $(PARSER) $(UTILS) $(DDA))
 #OBJFILES		= $(addprefix .objFiles/, cub3d $(UTILS))
 
