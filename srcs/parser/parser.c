@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 06:36:12 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/08 11:45:12 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/08 13:03:08 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,13 +139,52 @@ void	get_colors(t_program *ptr)
 				|| ptr->cub_content[i][0] == '0')
 			break ;
 		splited = ft_split(ptr->cub_content[i++], ", \n");
-		if (!splited[0])
-			return ;
-		if (ft_strcmp(splited[0], FLOOR) == EQUAL)
-			get_rgb(&ptr->map.floor_color, splited + 1);
-		else if (ft_strcmp(splited[0], CEILLING) == EQUAL)
-			get_rgb(&ptr->map.ceilling_color, splited + 1);
+		if (splited[0])
+		{
+			if (ft_strcmp(splited[0], FLOOR) == EQUAL)
+				get_rgb(&ptr->map.floor_color, splited + 1);
+			else if (ft_strcmp(splited[0], CEILLING) == EQUAL)
+				get_rgb(&ptr->map.ceilling_color, splited + 1);
+		}
 		free_split(splited);
+	}
+}
+
+int	get_map_len(t_program *ptr)
+{
+	int		i;
+	int		len;
+
+	i = 0;
+	len = 0;
+	while (ptr->cub_content[i])
+	{
+		if (ptr->cub_content[i][0] == '1'
+				|| ptr->cub_content[i][0] == ' '
+				|| ptr->cub_content[i][0] == '0')
+		{
+			len++;
+		}
+		i++;
+	}
+	return (len);
+}
+
+void	get_map(t_program *ptr)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (ptr->cub_content[i])
+	{
+		if (ptr->cub_content[i][0] == '1'
+				|| ptr->cub_content[i][0] == ' '
+				|| ptr->cub_content[i][0] == '0')
+		{
+			ptr->map.map[j++] = ptr->cub_content[i++];
+		}
 	}
 }
 

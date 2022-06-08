@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 11:39:12 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/08 11:40:58 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/08 12:32:41 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,11 @@ int	main(int ac, char **av)
 		return (EXIT_FAILURE);
 	game_ptr.map.filename = ft_strdup(av[1]); // TODO: free
 	get_cub_content(&game_ptr);
+	// print_map(game_ptr.cub_content);
 	get_colors(&game_ptr);
-	printf("r: %i\n", game_ptr.map.ceilling_color.r);
-	printf("b: %i\n", game_ptr.map.ceilling_color.b);
-	printf("g: %i\n", game_ptr.map.ceilling_color.g);
+	get_map(&game_ptr);
+	print_map(game_ptr.map.map);
+
 	/*
 	gamePtr.screen_h = 480;
 	gamePtr.screen_w = 640;

@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:13:41 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/08 11:38:52 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/08 12:31:34 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,6 @@ void	get_cub_content(t_program *ptr);
 void	print_map(char **content);
 void	get_map_textures(t_program *game_ptr);
 void	get_colors(t_program *ptr);
+void	get_map(t_program *ptr);
 
 #endif
