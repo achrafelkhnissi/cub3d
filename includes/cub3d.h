@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:13:41 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/08 06:34:02 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/08 11:20:26 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <sys/errno.h>
+# include <string.h>
 # include "mlx.h"
+
+# define EQUAL 0
 
 /* -------- KEY VALUES -------- */
 # define RIGHT_KEY 2
@@ -38,24 +41,45 @@
 # define ENEMY 'X'
 # define SQUARE 32
 
+# define FLOOR "F"
+# define CEILLING "C"
+
+# define NORTH_TEXTURE "NO"
+# define SOUTH_TEXTURE "SO"
+# define EAST_TEXTURE "EA"
+# define WEST_TEXTURE "WE"
+
 /* -------- COLORS -------- */
 # define RED 0x00FF0000
 # define GREEN 0x0000FF00
 # define BLUE 0x000000FF
 
+typedef struct s_color
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_color;
 
 typedef struct s_vector
 {
 	int	x;
 	int	y;
-} t_vector;
+}	t_vector;
 
-typedef	struct s_map
+typedef struct s_map
 {
-	char	**map;
-	int		col;
-	int		row;
-	t_vector player;
+	char		**map;
+	int			col;
+	int			row;
+	char		*north_texture;
+	char		*south_texture;
+	char		*west_texture;
+	char		*east_texture;
+	char		*filename; // temp
+	t_color		floor_color;
+	t_color		ceilling_color;
+	t_vector	player;
 }	t_map;
 
 typedef struct s_program
@@ -63,18 +87,19 @@ typedef struct s_program
 	void		*mlx;
 	void		*win_ptr;
 	void		*img_ptr;
-	// t_map		map;
+	char		**cub_content;
+	t_map		map;
 	int			screen_w;
-	int 		screen_h;
+	int			screen_h;
 	int			step_x;
 	int			step_y;
 	int			hit;
 	int			side;
 	int			map_x;
 	int			map_y;
-	int			lineHeight;
-	int			drawStart;
-	int			drawEnd;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
 	double		pos_x;
 	double		pos_y;
 	double		dir_x;
@@ -84,13 +109,27 @@ typedef struct s_program
 	double		camera_x;
 	double		raydir_x;
 	double		raydir_y;
-	double		deltaDist_x;
-	double		deltaDist_y;
-	double		sideDist_x;
-	double		sideDist_y;
-	double		perpWallDist;
-	
+	double		delta_dist_x;
+	double		delta_dist_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		perp_wall_dist;
 }				t_program;
 
-int lunch_game(void *ptr);
+int		lunch_game(void *ptr);
+
+/* ---- Utils Functions ---- */
+char	*get_next_line(int fd);
+int		ft_strlen(char *str);
+char	*ft_strdup(char *s1);
+int		ft_strcmp(char *s1, char *s2);
+char	**ft_split(char *str, char *sap);
+char	*ft_itoa(int n);
+
+/* ---- Parser Functions ---- */
+int		nbr_of_lines(char *filename);
+void	get_cub_content(t_program *ptr);
+void	print_map(char **content);
+void	get_map_textures(t_program *game_ptr);
+
 #endif

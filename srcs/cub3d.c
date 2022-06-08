@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fathjami <fathjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 11:39:12 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/07 13:59:31 by fathjami         ###   ########.fr       */
+/*   Updated: 2022/06/08 11:12:40 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
 #define mapWidth 24
 #define mapHeight 24
 #define screenWidth 640
-#define screenHeight 481
+#define screenHeight 480
 
 int worldMap[mapWidth][mapHeight]=
 {
@@ -70,18 +69,15 @@ int	ft_close(t_program *game)
 	return (0);
 }
 
-#define screenWidth 640
-#define screenHeight 480
-
-
 void	ft_new_window(t_program *game)
 {
 	game->win_ptr = mlx_new_window(game->mlx, screenWidth, screenHeight, "cub3D");
 	mlx_hook(game->win_ptr, WIN_CLOSE, 0, ft_close, game);
 }
 
-int rgbToInt(int r, int g, int b) {
-    return (r << 16) | (g << 8) | b;
+int	rgb_to_int(int r, int g, int b)
+{
+	return ((r << 16) | (g << 8) | b);
 }
 
 void	drawCeiling(t_program game)
@@ -94,7 +90,7 @@ void	drawCeiling(t_program game)
 	{
 		y = 0;
 		while (y < screenWidth)
-			mlx_pixel_put(game.mlx, game.win_ptr, y++, i, rgbToInt(105, 105, 105));
+			mlx_pixel_put(game.mlx, game.win_ptr, y++, i, rgb_to_int(105, 105, 105));
 		i++;
 	}
 }
@@ -109,15 +105,32 @@ void	drawFloor(t_program game)
 	{
 		y = 0;
 		while (y < screenWidth)
-			mlx_pixel_put(game.mlx, game.win_ptr, y++, i, rgbToInt(192, 192, 192));
+			mlx_pixel_put(game.mlx, game.win_ptr, y++, i, rgb_to_int(192, 192, 192));
 		i++;
 	}
 }
 
-int	main(void)
+int	main(int ac, char **av)
 {
-	t_program gamePtr;
+	t_program game_ptr;
 
+	if (ac != 2)
+		return (EXIT_FAILURE);
+	game_ptr.map.filename = ft_strdup(av[1]); // TODO: free
+	get_cub_content(&game_ptr);
+	{
+		char	**splited;
+		int	i = 0;
+		while (game_ptr.cub_content[i])
+		{
+			if (game_ptr.cub_content[i][0] == '1'
+					|| game_ptr.cub_content[i][0] == ' ')
+				break ; // parse map here if found.
+			splited = ft_split(game_ptr.cub_content[i++], ", \n");
+			print_map(splited);
+		}
+	}
+	/*
 	gamePtr.screen_h = 480;
 	gamePtr.screen_w = 640;
 	gamePtr.mlx = mlx_init();
@@ -126,5 +139,6 @@ int	main(void)
 	drawFloor(gamePtr);
 	mlx_loop_hook(gamePtr.mlx, lunch_game, &gamePtr);
 	mlx_loop(gamePtr.mlx);
+	*/
 	return (0);
 }

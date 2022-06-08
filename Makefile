@@ -19,9 +19,12 @@ RM			= rm -rf
 INCLUDES	= -I /usr/local/include
 LIBMLX		= -L /usr/local/lib
 
+OBJDIR = .objFiles
+
 PARSER		= $(addprefix parser/, parser)
-UTILS		= $(addprefix utils/, )
-FILES		= $(addprefix srcs/, cub3d $(PARSER) $(UTILS))
+UTILS		= $(addprefix utils/, gnl ft_strlen ft_strdup ft_split ft_strcmp ft_itoa)
+# DDA			= $(addprefix DDA/, luncher)
+FILES		= $(addprefix srcs/, cub3d $(PARSER) $(UTILS) $(DDA))
 #OBJFILES		= $(addprefix .objFiles/, cub3d $(UTILS))
 
 SRC			= $(FILES:=.c)
@@ -29,7 +32,6 @@ OBJ			= $(addprefix $(OBJDIR)/, $(FILES:=.o))
 HEADER		= $(addprefix includes/, cub3d.h)
 CUB3DHEADER = -I includes
 
-OBJDIR = .objFiles 
 
 #Colors:
 GREEN		=	\e[92;5;118m
@@ -56,7 +58,7 @@ $(OBJDIR)/%.o: %.c $(HEADER)
 	@mkdir -p $(dir $@)
 	@ printf "$(CURSIVE)$(GRAY) 	- Making object file $@ from source file $< ... $(RESET)\n"
 	@#printf "$(CURSIVE)$(GRAY) 	- Making object file $(notdir $@) from source file $(notdir $<) ... $(RESET)\n"
-	@$(CC) -Wall -Wextra -Werror $(OPTS) -c $< -o $@
+	@$(CC) -Wall -Wextra -Werror $(OPTS) $(CUB3DHEADER) $(OPTS) -c $< -o $@
 
 norm:
 	@printf "$(CURSIVE)$(GRAY)"
