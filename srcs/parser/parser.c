@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 06:36:12 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/08 13:08:08 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/08 14:50:00 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,28 @@ int	nbr_of_lines(char *filename)
 	return (i);
 }
 
-void	print_map(char **content)
+void	print_map(t_map	map)
 {
 	int	i;
 
 	i = -1;
-	while (content[++i])
-		printf("content[%i]: %s\n", i, content[i]);
-	putchar('\n');
+	printf("---------------------- MAP --------------------------\n");
+	while (map.map[++i])
+		printf("map[%i]: %s\n", i, map.map[i]);
+	printf("map's lines: %i\n", map.row);
+	printf("---------------------- TEXTURE ----------------------\n");
+	printf("NO: %s\n", map.north_texture);
+	printf("SO: %s\n", map.south_texture);
+	printf("EA: %s\n", map.east_texture);
+	printf("WE: %s\n", map.west_texture);
+	printf("---------------------- COLORS -----------------------\n");
+	printf("floor: %i, %i, %i\n", map.floor_color.r, map.floor_color.g, map.floor_color.b);
+	printf("ceilling: %i, %i, %i\n", map.ceilling_color.r, map.ceilling_color.g, map.ceilling_color.b);
+	printf("---------------------- PLAYSR X----------------------\n");
+	printf("Player position: x: %i, y: %i\n", map.player.x, map.player.y);
+	printf("---------------------- FILE -------------------------\n");
+	printf("Filename: %s\n", map.filename);
+	printf("-----------------------------------------------------\n");
 }
 
 void	get_cub_content(t_program *ptr)
@@ -170,6 +184,11 @@ int	get_map_len(t_program *ptr)
 	return (len);
 }
 
+int	check_new_line(char *str)
+{
+	return (str[ft_strlen(str) - 1] == '\n');
+}
+
 void	get_map(t_program *ptr)
 {
 	int		i;
@@ -177,14 +196,22 @@ void	get_map(t_program *ptr)
 
 	i = 0;
 	j = 0;
-	ptr->map.map = malloc(sizeof(char *) * (get_map_len(ptr) + 1));
+	ptr->map.row = get_map_len(ptr);
+	ptr->map.map = malloc(sizeof(char *) * (ptr->map.row + 1));
+	if (!ptr->map.map)
+	{
+		printf("Malloc Error: parser.c: 180\n");
+		exit(EXIT_FAILURE);
+	}
 	while (ptr->cub_content[i])
 	{
 		if (ptr->cub_content[i][0] == '1'
 				|| ptr->cub_content[i][0] == ' '
 				|| ptr->cub_content[i][0] == '0')
 		{
-			ptr->map.map[j++] = ft_strdup(ptr->cub_content[i]);
+			ptr->map.map[j++] = ft_strndup(ptr->cub_content[i],
+					ft_strlen(ptr->cub_content[i]) - \
+					check_new_line(ptr->cub_content[i]));
 		}
 		i++;
 	}
