@@ -19,8 +19,9 @@ RM			= rm -rf
 INCLUDES	= -I /usr/local/include
 LIBMLX		= -L /usr/local/lib
 
+PARSER		= $(addprefix parser/, parser)
 UTILS		= $(addprefix utils/, )
-FILES		= $(addprefix srcs/, cub3d $(UTILS))
+FILES		= $(addprefix srcs/, cub3d $(PARSER) $(UTILS))
 #OBJFILES		= $(addprefix .objFiles/, cub3d $(UTILS))
 
 SRC			= $(FILES:=.c)
