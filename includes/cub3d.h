@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:13:41 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/08 11:20:26 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/08 11:38:52 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,11 +125,13 @@ char	*ft_strdup(char *s1);
 int		ft_strcmp(char *s1, char *s2);
 char	**ft_split(char *str, char *sap);
 char	*ft_itoa(int n);
+int		ft_atoi(const char *str);
 
 /* ---- Parser Functions ---- */
 int		nbr_of_lines(char *filename);
 void	get_cub_content(t_program *ptr);
 void	print_map(char **content);
 void	get_map_textures(t_program *game_ptr);
+void	get_colors(t_program *ptr);
 
 #endif

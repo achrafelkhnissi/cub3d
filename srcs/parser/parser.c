@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 06:36:12 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/08 11:07:44 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/08 11:45:12 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,14 @@ void	get_map_textures(t_program *game_ptr)
 {
 	char	**splited;
 	int		i;
-	
+
 	i = 0;
 	while (game_ptr->cub_content[i])
 	{
 		if (game_ptr->cub_content[i][0] == '1'
-				|| game_ptr->cub_content[i][0] == ' ')
-			break ; // parse map here if found.
+				|| game_ptr->cub_content[i][0] == ' '
+				|| game_ptr->cub_content[i][0] == '0')
+			break ;
 		splited = ft_split(game_ptr->cub_content[i++], ", \n");
 		if (!splited[0])
 			return ;
@@ -114,6 +115,36 @@ void	get_map_textures(t_program *game_ptr)
 			game_ptr->map.east_texture = ft_strdup(splited[1]);
 		else if (ft_strcmp(splited[0], WEST_TEXTURE) == EQUAL)
 			game_ptr->map.west_texture = ft_strdup(splited[1]);
+		free_split(splited);
+	}
+}
+
+void	get_rgb(t_color *color, char **str)
+{
+	color->r = ft_atoi(str[0]);
+	color->g = ft_atoi(str[1]);
+	color->b = ft_atoi(str[2]);
+}
+
+void	get_colors(t_program *ptr)
+{
+	char	**splited;
+	int		i;
+
+	i = 0;
+	while (ptr->cub_content[i])
+	{
+		if (ptr->cub_content[i][0] == '1'
+				|| ptr->cub_content[i][0] == ' '
+				|| ptr->cub_content[i][0] == '0')
+			break ;
+		splited = ft_split(ptr->cub_content[i++], ", \n");
+		if (!splited[0])
+			return ;
+		if (ft_strcmp(splited[0], FLOOR) == EQUAL)
+			get_rgb(&ptr->map.floor_color, splited + 1);
+		else if (ft_strcmp(splited[0], CEILLING) == EQUAL)
+			get_rgb(&ptr->map.ceilling_color, splited + 1);
 		free_split(splited);
 	}
 }
