@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 06:36:12 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/08 13:08:08 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/08 13:18:45 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ void	get_map(t_program *ptr)
 				|| ptr->cub_content[i][0] == ' '
 				|| ptr->cub_content[i][0] == '0')
 		{
-			ptr->map.map[j++] = ft_strdup(ptr->cub_content[i]);
+			ptr->map.map[j++] = ft_strndup(ptr->cub_content[i]);
 		}
 		i++;
 	}
