@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:13:41 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/08 14:51:06 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/09 10:08:59 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ typedef struct s_vector
 typedef struct s_map
 {
 	char		**map;
-	// int			col;
 	int			row;
 	char		*north_texture;
 	char		*south_texture;
@@ -128,6 +127,7 @@ char	**ft_split(char *str, char *sap);
 char	*ft_itoa(int n);
 int		ft_atoi(const char *str);
 char	*ft_strndup(char *s1, int n);
+void	ft_puterror(char *msg);
 
 /* ---- Parser Functions ---- */
 int		nbr_of_lines(char *filename);
@@ -136,8 +136,10 @@ void	print_map(t_map map);
 void	get_map_textures(t_program *game_ptr);
 void	get_colors(t_program *ptr);
 void	get_map(t_program *ptr);
+void	parse_map(t_program *ptr);
 
 /* ---- Init Functions ---- */
 void	init_map(t_map *map);
+void	init_game(t_program *game);
 
 #endif
