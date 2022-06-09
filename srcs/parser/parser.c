@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 06:36:12 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/08 14:50:00 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/09 11:19:52 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ void	print_map(t_map	map)
 	printf("---------------------- COLORS -----------------------\n");
 	printf("floor: %i, %i, %i\n", map.floor_color.r, map.floor_color.g, map.floor_color.b);
 	printf("ceilling: %i, %i, %i\n", map.ceilling_color.r, map.ceilling_color.g, map.ceilling_color.b);
-	printf("---------------------- PLAYSR X----------------------\n");
+	printf("---------------------- PLAYSR ----------------------\n");
 	printf("Player position: x: %i, y: %i\n", map.player.x, map.player.y);
+	printf("Starting position: %c\n", map.starting_pos);
 	printf("---------------------- FILE -------------------------\n");
 	printf("Filename: %s\n", map.filename);
 	printf("-----------------------------------------------------\n");
@@ -79,10 +80,7 @@ void	get_cub_content(t_program *ptr)
 	len = nbr_of_lines(ptr->map.filename);
 	ptr->cub_content = malloc(sizeof(char *) * (len + 1));
 	if (!ptr->cub_content)
-	{
-		printf("malloc error:parser.c:42\n");
-		exit(EXIT_FAILURE);
-	}
+		ft_puterror("Malloc Error: parser.c: 81\n");
 	fd = open(ptr->map.filename, O_RDONLY);
 	if (fd == -1)
 	{
@@ -199,10 +197,7 @@ void	get_map(t_program *ptr)
 	ptr->map.row = get_map_len(ptr);
 	ptr->map.map = malloc(sizeof(char *) * (ptr->map.row + 1));
 	if (!ptr->map.map)
-	{
-		printf("Malloc Error: parser.c: 180\n");
-		exit(EXIT_FAILURE);
-	}
+		ft_puterror("Malloc Error: parser.c: 201\n");
 	while (ptr->cub_content[i])
 	{
 		if (ptr->cub_content[i][0] == '1'
@@ -218,7 +213,96 @@ void	get_map(t_program *ptr)
 	ptr->map.map[j] = 0;
 }
 
-// void	parse_map(t_program *ptr)
-// {
-	
-// }
+int	in_charset(char c, char *set)
+{
+	int	i;
+
+	i = 0;
+	while (set[i])
+	{
+		if (c == set[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void	get_player_pos(t_map *map)
+{
+	int	row;
+	int	col;
+
+	row = 0;
+	while (map->map[row])
+	{
+		col = 0;
+		while (map->map[row][col])
+		{
+			if (in_charset(map->map[row][col], "NSEW"))
+			{
+				map->player.x = row;
+				map->player.y = col;
+				map->starting_pos = map->map[row][col];
+				return ;
+			}
+			col++;
+		}
+		row++;
+	}
+}
+
+int	check_extention(char *src, char *to_find)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = ft_strlen(src) - ft_strlen(to_find);
+	while ((src[j] && to_find[i])
+		&& (src[j++] == to_find[i++]))
+		;
+	if (j == ft_strlen(src))
+		return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
+}
+
+void	check_map(char **map)
+{
+	int	row;
+	int	col;
+	int	found;
+
+	row = 0;
+	found = 0;
+	while (map[row])
+	{
+		col = 0;
+		while (map[row][col])
+		{
+			if (!in_charset(map[row][col], " 01NSEW"))
+				ft_puterror("Invalid character found in map.\n");
+			if (in_charset(map[row][col], "NSEW"))
+				found++;
+			col++;
+		}
+		row++;
+	}
+	if (!found)
+		ft_puterror("Player not found!.\n");
+	else if (found > 1)
+		ft_puterror("This is not a multiplayer game..\n");
+}
+
+void	parse_map(t_program *ptr)
+{
+	if (check_extention(ptr->map.filename, ".cub")
+		== EXIT_FAILURE)
+		ft_puterror("Wrong extention.\n");
+	get_cub_content(ptr);
+	get_map(ptr);
+	check_map(ptr->map.map);
+	get_map_textures(ptr);
+	get_colors(ptr);
+	get_colors(ptr);
+	get_player_pos(&ptr->map);
+}

@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 11:39:12 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/08 14:55:38 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/09 10:12:22 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,17 +115,11 @@ int	main(int ac, char **av)
 	t_program game_ptr;
 
 	if (ac != 2)
-		return (EXIT_FAILURE);
-	init_map(&game_ptr.map);
+		ft_puterror("Usage: ./cub3D ./path_to_map\n");
+	init_game(&game_ptr);
 	game_ptr.map.filename = ft_strdup(av[1]); // TODO: free
-	get_cub_content(&game_ptr);
-	// print_map(game_ptr.cub_content);
-	get_map_textures(&game_ptr);
-	get_colors(&game_ptr);
-	get_colors(&game_ptr);
-	get_map(&game_ptr);
+	parse_map(&game_ptr);
 	print_map(game_ptr.map);
-
 	/*
 	gamePtr.screen_h = 480;
 	gamePtr.screen_w = 640;
