@@ -6,7 +6,7 @@
 /*   By: fathjami <fathjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:13:41 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/08 14:25:42 by fathjami         ###   ########.fr       */
+/*   Updated: 2022/06/09 17:16:19 by fathjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,15 @@
 # define EQUAL 0
 
 /* -------- KEY VALUES -------- */
-# define RIGHT_KEY 2
-# define LEFT_KEY 0
-# define DOWN_KEY 1
-# define UP_KEY 13
+# define RIGHT_M 2
+# define LEFT_M 0
+# define DOWN_M 1
+# define UP_M 13
 # define ESC_KEY 53
 # define WIN_CLOSE 17
+
+# define RIGHT_R 124
+# define LEFT_R 123
 
 /* -------- MAP -------- */
 # define BUFF_SIZE 256
@@ -124,7 +127,7 @@ typedef struct s_program
 	double		perp_wall_dist;
 }				t_program;
 
-int		lunch_game(void *ptr);
+int		lunch_game( void *ptr);
 
 /* ---- Utils Functions ---- */
 char	*get_next_line(int fd);
@@ -143,4 +146,15 @@ void	get_map_textures(t_program *game_ptr);
 void	get_colors(t_program *ptr);
 void	get_map(t_program *ptr);
 int	rgb_to_int(int r, int g, int b);
+
+
+
+
+
+
+
+
+int move(int key, t_program* game_ptr);
+void	drawFloor(t_program game);
+void	drawCeiling(t_program game);
 #endif

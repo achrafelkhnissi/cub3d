@@ -6,7 +6,7 @@
 /*   By: fathjami <fathjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 11:39:12 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/08 16:19:06 by fathjami         ###   ########.fr       */
+/*   Updated: 2022/06/09 17:54:43 by fathjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,21 @@ int	main(int ac, char **av)
 	game_ptr.screen_h = 480;
 	game_ptr.screen_w = 640;
 	game_ptr.mlx = mlx_init();
+		game_ptr.pos_x = 22.0;
+	game_ptr.pos_y =11.5;
+	game_ptr.dir_x = -1.0;
+	game_ptr.dir_y = 0.0;
+	game_ptr.x = 0;
+	game_ptr.screen_h = screenHeight;
+	game_ptr.screen_w = screenWidth;
+	game_ptr.plane_x = 0.0;
+	game_ptr.plane_y = 0.66;
 	ft_new_window(&game_ptr);
-	drawCeiling(game_ptr);
-	drawFloor(game_ptr);
 	// lunch_game(&game_ptr)÷;
+		drawCeiling(game_ptr);
+	drawFloor(game_ptr);
 	mlx_loop_hook(game_ptr.mlx, lunch_game, &game_ptr);
+	mlx_hook (game_ptr.win_ptr, 2, 0, &move, &game_ptr);
 	mlx_loop(game_ptr.mlx);
 	return (0);
 }
