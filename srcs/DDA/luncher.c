@@ -59,70 +59,175 @@ void back(t_program * game_ptr)
 	game_ptr->pos_y -= game_ptr->dir_y * 0.5;
 }
 
-int move(int key, t_program* game_ptr)
+void right(t_program * game_ptr)
+{
+	game_ptr->pos_y +=  sqrt(pow(game_ptr->plane_y, 2) + pow(game_ptr->plane_x, 2)) * 0.5 + game_ptr->raydir_y;
+}
+
+void left(t_program * game_ptr)
+{
+	game_ptr->pos_y -= sqrt(pow(game_ptr->plane_y, 2) + pow(game_ptr->plane_x, 2)) * 0.5 + game_ptr->raydir_y;
+}
+
+int press(int key, t_program* game_ptr)
 {
 	if (key == RIGHT_R)
 	{
-		printf("key:%i\n",key);
-		rotate_right(game_ptr);
-		mlx_clear_window(game_ptr->mlx, game_ptr->win_ptr);
-		drawCeiling(*game_ptr);
-		drawFloor(*game_ptr);
-		game_ptr->x = 0;
-		lunch_game(game_ptr);
+		game_ptr->key = key;
+		game_ptr->r_right = 1;
 	}
 	else if (key == LEFT_R)
 	{
-		rotate_left(game_ptr);
-		mlx_clear_window(game_ptr->mlx, game_ptr->win_ptr);
-		drawCeiling(*game_ptr);
-		drawFloor(*game_ptr);
-		game_ptr->x = 0;
-		lunch_game(game_ptr);
+		game_ptr->key = key;
+		game_ptr->r_left = 1;
 	}
 	else if (key == UP_M)
 	{
-		forword(game_ptr);
-		mlx_clear_window(game_ptr->mlx, game_ptr->win_ptr);
-		drawCeiling(*game_ptr);
-		drawFloor(*game_ptr);
-		game_ptr->x = 0;
-		lunch_game(game_ptr);
-
+		game_ptr->key = key;
+		game_ptr->r_up = 1;
 	}
 	else if (key == DOWN_M)
 	{
-		back(game_ptr);
+		game_ptr->key = key;
+		game_ptr->r_down = 1;
+	}
+	else if (key == RIGHT_M)
+	{
+		game_ptr->key = key;
+		game_ptr->m_right = 1;
+	}
+	else if (key == LEFT_M)
+	{
+		game_ptr->key = key;
+		game_ptr->m_left = 1;
+	}
+	move(key, game_ptr);
+	return 0;
+}
+
+int release(int key, t_program* game_ptr)
+{
+	if (key == RIGHT_R)
+	{
+		game_ptr->key = -1;
+		game_ptr->r_right = 0;
+	}
+	else if (key == LEFT_R)
+	{
+		game_ptr->key = -1;
+		game_ptr->r_left = 0;
+	}
+	else if (key == UP_M)
+	{
+		game_ptr->key = -1;
+		game_ptr->r_up = 0;
+	}
+	else if (key == DOWN_M)
+	{
+		game_ptr->key = -1;
+		game_ptr->r_down = 0;
+	}	
+	else if (key == LEFT_M)
+	{
+		game_ptr->key = -1;
+		game_ptr->m_left = 0;
+	}	
+	else if (key == RIGHT_M)
+	{
+		game_ptr->key = -1;
+		game_ptr->m_right = 0;
+	}	
+	return 0;
+}
+
+int move(int key, t_program* game_ptr)
+{
+	key = 1;
+	mlx_destroy_image(game_ptr->mlx, game_ptr->img_ptr);
+	game_ptr->img_ptr = mlx_new_image(game_ptr->mlx, game_ptr->screen_w, game_ptr->screen_h);
+	if (game_ptr->r_right == 1)
+	{
+		printf("key:%i\n",key);
+	
+		rotate_right(game_ptr);
 		mlx_clear_window(game_ptr->mlx, game_ptr->win_ptr);
-		drawCeiling(*game_ptr);
-		drawFloor(*game_ptr);
+		// drawCeiling(*game_ptr);
+		// drawFloor(*game_ptr);
 		game_ptr->x = 0;
 		lunch_game(game_ptr);
-
+	}
+	else if (game_ptr->r_left == 1)
+	{
+				printf("plane x: %f, ", game_ptr->plane_x);
+			printf("plane y: %f\n", game_ptr->plane_y);
+		rotate_left(game_ptr);
+		printf(" first plane x: %f, ", game_ptr->plane_x);
+		printf(" first plane y: %f\n", game_ptr->plane_y);
+		mlx_clear_window(game_ptr->mlx, game_ptr->win_ptr);
+		// drawCeiling(*game_ptr);
+		// drawFloor(*game_ptr);
+		game_ptr->x = 0;
+		lunch_game(game_ptr);
+	}
+	else if (game_ptr->r_up == 1)
+	{
+		if(worldMap[(int) (game_ptr->pos_x + game_ptr->dir_x )][(int) (game_ptr->pos_y + game_ptr->dir_y)] == 0)
+			forword(game_ptr);
+		mlx_clear_window(game_ptr->mlx, game_ptr->win_ptr);
+		// drawCeiling(*game_ptr);
+		// drawFloor(*game_ptr);
+		game_ptr->x = 0;
+		lunch_game(game_ptr);
+	}
+	else if (game_ptr->r_down == 1)
+	{
+		if(worldMap[(int) (game_ptr->pos_x - game_ptr->dir_x )][(int) (game_ptr->pos_y - game_ptr->dir_y)] == 0)
+		back(game_ptr);
+		mlx_clear_window(game_ptr->mlx, game_ptr->win_ptr);
+		// drawCeiling(*game_ptr);
+		// drawFloor(*game_ptr);
+		game_ptr->x = 0;
+		lunch_game(game_ptr);
+	}
+	else if (game_ptr->m_right == 1)
+	{
+		if(worldMap[(int) (game_ptr->pos_x)][(int) (game_ptr->pos_y +  game_ptr->dir_y + game_ptr->plane_y)] == 0)
+		right(game_ptr);
+		mlx_clear_window(game_ptr->mlx, game_ptr->win_ptr);
+		// drawCeiling(*game_ptr);
+		// drawFloor(*game_ptr);
+		game_ptr->x = 0;
+		lunch_game(game_ptr);
+	}	
+	else if (game_ptr->m_left == 1)
+	{
+		if(worldMap[(int) (game_ptr->pos_x)][(int) (game_ptr->pos_y +  game_ptr->dir_y - game_ptr->plane_y)] == 0)
+		left(game_ptr);
+		mlx_clear_window(game_ptr->mlx, game_ptr->win_ptr);
+		// drawCeiling(*game_ptr);
+		// drawFloor(*game_ptr);
+		game_ptr->x = 0;
+		lunch_game(game_ptr);
 	}
 	return 0;
 }
-int lunch_game( void *ptr)
-{
-	t_program *game_ptr;
-	 
-	game_ptr = ptr;
 
-	while (game_ptr->x < game_ptr->screen_w)
+void draw(t_program *game_ptr)
+{
+	int end;
+	char *pixel;
+
+	game_ptr->img_arr = mlx_get_data_addr(game_ptr->img_ptr, &game_ptr->img_bpp, &game_ptr->img_len, &end);
+		while (game_ptr->x < game_ptr->screen_w)
 	{
-		// sleep(1);
 		game_ptr->camera_x = 2 * (game_ptr->x / (double)(game_ptr->screen_w)) - 1;
-		// printf("cam: %f\n\n", game_ptr->camera_x);
 		game_ptr->raydir_x = game_ptr->dir_x + game_ptr->plane_x * game_ptr->camera_x;
 		game_ptr->raydir_y = game_ptr->dir_y + game_ptr->plane_y * game_ptr->camera_x;
 		game_ptr->map_x = (int)game_ptr->pos_x;
 		game_ptr->map_y = (int)game_ptr->pos_y;
-		// game_ptr->delta_dist_x = sqrt(1 + (game_ptr->raydir_x * game_ptr->raydir_x) / (game_ptr->raydir_y * game_ptr->raydir_y));
-		// game_ptr->delta_dist_y = sqrt(1 + (game_ptr->raydir_y * game_ptr->raydir_y) / (game_ptr->raydir_x * game_ptr->raydir_x));
+
 		game_ptr->delta_dist_x = sqrt(1 + pow(game_ptr->raydir_y, 2) / pow(game_ptr->raydir_x, 2));
 		game_ptr->delta_dist_y = sqrt(1 + pow(game_ptr->raydir_x, 2) / pow(game_ptr->raydir_y, 2));
-		// game_ptr->delta_dist_x = fabs(1 / game_ptr->raydir_x);
-		// game_ptr->delta_dist_y = fabs(1 / game_ptr->raydir_y);
 		game_ptr->hit = 0;
 		if (game_ptr->raydir_x < 0)
 		{
@@ -162,11 +267,10 @@ int lunch_game( void *ptr)
 				game_ptr->hit = 1;
 		}
 		if (game_ptr->side == 0)
-			game_ptr->perp_wall_dist = game_ptr->side_dist_x - game_ptr->delta_dist_x;
+			game_ptr->perp_wall_dist = (game_ptr->map_x - game_ptr->pos_x + (1 - game_ptr->step_x) / 2) / game_ptr->raydir_x;
 		else
-			game_ptr->perp_wall_dist = game_ptr->side_dist_y - game_ptr->delta_dist_y;
+		game_ptr->perp_wall_dist = (game_ptr->map_y - game_ptr->pos_y + (1 - game_ptr->step_y) / 2) / game_ptr->raydir_y;
 		
-		// printf("prep: %f\n", game_ptr->perp_wall_dist);
 		game_ptr->line_height = (int)(game_ptr->screen_h / game_ptr->perp_wall_dist);
 		game_ptr->draw_start = - game_ptr->line_height / 2 + game_ptr->screen_h  / 2;
 		if (game_ptr->draw_start < 0)
@@ -175,23 +279,94 @@ int lunch_game( void *ptr)
 		if (game_ptr->draw_end >= game_ptr->screen_h)
 			game_ptr->draw_end = game_ptr->screen_h - 1;
 
-	// printf("start: %i\n end: %i\n x: %i\n", game_ptr->draw_start, game_ptr->draw_end, game_ptr->x);
-	// usleep(100000);
-		for(int y = game_ptr->draw_start; y < game_ptr->draw_end; y++)
-		{
-			if (game_ptr->side == 0)
-			{
-				if (worldMap[game_ptr->map_x][game_ptr->map_y] == 1)
-					mlx_pixel_put(game_ptr->mlx, game_ptr->win_ptr, game_ptr->x,y , 0x922B21);
-				else if (worldMap[game_ptr->map_x][game_ptr->map_y] == 2)
-					mlx_pixel_put(game_ptr->mlx, game_ptr->win_ptr, game_ptr->x,y , 0x1F618D);
-				else 
-						mlx_pixel_put(game_ptr->mlx, game_ptr->win_ptr, game_ptr->x,y , 0xBB8FCE);
-			}
-			else
-				mlx_pixel_put(game_ptr->mlx, game_ptr->win_ptr, game_ptr->x,y , 0x614E16);
-		}
-	game_ptr->x++;
+	for(int y = 0; y < game_ptr->draw_start; y++)
+	{
+		pixel = game_ptr->img_arr + (y * game_ptr->img_len + (game_ptr->x * 4));
+		*(int *)pixel = 0xDCDCDC;
 	}
+		for(int y = game_ptr->draw_end; y < game_ptr->screen_h; y++)
+	{
+		pixel = game_ptr->img_arr + (y * game_ptr->img_len + (game_ptr->x * 4));
+		*(int *)pixel = 0x6F6F6F;
+	}
+	  for(int y = game_ptr->draw_start; y < game_ptr->draw_end; y++)
+		{
+				pixel = game_ptr->img_arr + (y * game_ptr->img_len + (game_ptr->x * 4));
+				if (game_ptr->side== 1)
+					*(int *)pixel = 0xA96192;
+				else
+					*(int *)pixel = 0x6A3E5C ;
+		}
+		// for(int y = game_ptr->draw_start; y < game_ptr->draw_end; y++)
+		// {
+		// 	if (game_ptr->side == 0)
+		// 	{
+		// 		if (worldMap[game_ptr->map_x][game_ptr->map_y] == 1)
+		// 			mlx_pixel_put(game_ptr->mlx, game_ptr->win_ptr, game_ptr->x,y , 0x922B21);
+		// 		else if (worldMap[game_ptr->map_x][game_ptr->map_y] == 2)
+		// 			mlx_pixel_put(game_ptr->mlx, game_ptr->win_ptr, game_ptr->x,y , 0x1F618D);
+		// 		else 
+		// 				mlx_pixel_put(game_ptr->mlx, game_ptr->win_ptr, game_ptr->x,y , 0xBB8FCE);
+		// 	}
+		// 	else
+		// 		mlx_pixel_put(game_ptr->mlx, game_ptr->win_ptr, game_ptr->x,y , 0x614E16);
+		// }
+		game_ptr->x++;
+	}
+	mlx_put_image_to_window(game_ptr->mlx, game_ptr->win_ptr, game_ptr->img_ptr, 0, 0);
+}
+int lunch_game(void *ptr)
+{
+	t_program *game_ptr;
+
+	// char *pixel;
+	 
+	game_ptr = ptr;
+	// len = 0;
+	// bpp = 0;
+	// pixel = NULL;
+	mlx_clear_window(game_ptr->mlx, game_ptr->win_ptr);
+	// move(game_ptr->key , game_ptr);
+		// arr = malloc(game_ptr->screen_h * game_ptr->screen_w);
+
+		 draw(game_ptr);
+		// mlx_put_image_to_window(game_ptr->mlx, game_ptr->win_ptr, mlx_img, game_ptr->x, game_ptr->line_height);
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// for(int y = game_ptr->draw_start; y < game_ptr->draw_end; y++)
+		// {
+		// 	if (game_ptr->side == 0)
+		// 	{
+		// 		if (worldMap[game_ptr->map_x][game_ptr->map_y] == 1)
+		// 			mlx_pixel_put(game_ptr->mlx, game_ptr->win_ptr, game_ptr->x,y , 0x922B21);
+		// 		else if (worldMap[game_ptr->map_x][game_ptr->map_y] == 2)
+		// 			mlx_pixel_put(game_ptr->mlx, game_ptr->win_ptr, game_ptr->x,y , 0x1F618D);
+		// 		else 
+		// 				mlx_pixel_put(game_ptr->mlx, game_ptr->win_ptr, game_ptr->x,y , 0xBB8FCE);
+		// 	}
+		// 	else
+		// 		mlx_pixel_put(game_ptr->mlx, game_ptr->win_ptr, game_ptr->x,y , 0x614E16);
+		// }

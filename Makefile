@@ -13,7 +13,7 @@
 NAME		= cub3D
 	
 CC			= cc
-FLAGS		= -Wall -Wextra -Werror
+FLAGS		= -Wall -Wextra -Werror -g
 RM			= rm -rf
 
 INCLUDES	= -I /usr/local/include
@@ -58,7 +58,7 @@ $(OBJDIR)/%.o: %.c $(HEADER)
 	@mkdir -p $(dir $@)
 	@ printf "$(CURSIVE)$(GRAY) 	- Making object file $@ from source file $< ... $(RESET)\n"
 	@#printf "$(CURSIVE)$(GRAY) 	- Making object file $(notdir $@) from source file $(notdir $<) ... $(RESET)\n"
-	@$(CC) -Wall -Wextra -Werror $(OPTS) $(CUB3DHEADER) $(OPTS) -c $< -o $@
+	$(CC) $(FLAGS) $(OPTS) $(CUB3DHEADER) $(OPTS) -c $< -o $@
 
 norm:
 	@printf "$(CURSIVE)$(GRAY)"

@@ -6,7 +6,7 @@
 /*   By: fathjami <fathjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:13:41 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/09 17:16:19 by fathjami         ###   ########.fr       */
+/*   Updated: 2022/06/22 17:07:37 by fathjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,10 @@ typedef struct s_program
 	void		*mlx;
 	void		*win_ptr;
 	void		*img_ptr;
+	int			img_len;
+	int			img_bpp;
+	char		*img_arr;
+	// char		*img_pixel;
 	char		**cub_content;
 	t_map		map;
 	int			screen_w;
@@ -111,6 +115,13 @@ typedef struct s_program
 	int			draw_start;
 	int			draw_end;
 	int			x;
+	int			r_right;
+	int			m_right;
+	int			r_left;
+	int			m_left;
+	int			r_up;
+	int			r_down;
+	int			key;
 	double		pos_x;
 	double		pos_y;
 	double		dir_x;
@@ -124,7 +135,7 @@ typedef struct s_program
 	double		delta_dist_y;
 	double		side_dist_x;
 	double		side_dist_y;
-	double		perp_wall_dist;
+	double	perp_wall_dist;
 }				t_program;
 
 int		lunch_game( void *ptr);
@@ -157,4 +168,6 @@ int	rgb_to_int(int r, int g, int b);
 int move(int key, t_program* game_ptr);
 void	drawFloor(t_program game);
 void	drawCeiling(t_program game);
+int press(int key, t_program* game_ptr);
+int release(int key, t_program* game_ptr);
 #endif
