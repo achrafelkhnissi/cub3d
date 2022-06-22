@@ -61,12 +61,14 @@ void back(t_program * game_ptr)
 
 void right(t_program * game_ptr)
 {
-	game_ptr->pos_y +=  sqrt(pow(game_ptr->plane_y, 2) + pow(game_ptr->plane_x, 2)) * 0.5 + game_ptr->raydir_y;
+	game_ptr->pos_y +=  game_ptr->plane_y * 0.5 ;
+	game_ptr->pos_x +=  game_ptr->plane_x * 0.5 ;
 }
 
 void left(t_program * game_ptr)
 {
-	game_ptr->pos_y -= sqrt(pow(game_ptr->plane_y, 2) + pow(game_ptr->plane_x, 2)) * 0.5 + game_ptr->raydir_y;
+	game_ptr->pos_y -=  game_ptr->plane_y * 0.5 ;
+	game_ptr->pos_x -=  game_ptr->plane_x * 0.5 ;
 }
 
 int press(int key, t_program* game_ptr)
