@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 11:39:12 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/09 10:12:22 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/16 16:18:54 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	main(int ac, char **av)
 	init_game(&game_ptr);
 	game_ptr.map.filename = ft_strdup(av[1]); // TODO: free
 	parse_map(&game_ptr);
-	print_map(game_ptr.map);
+	// print_map(game_ptr.map);
 	/*
 	gamePtr.screen_h = 480;
 	gamePtr.screen_w = 640;

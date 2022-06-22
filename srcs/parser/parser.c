@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 06:36:12 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/09 11:19:52 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/22 12:41:50 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -293,6 +293,39 @@ void	check_map(char **map)
 		ft_puterror("This is not a multiplayer game..\n");
 }
 
+void	check_map_full(t_map map)
+{
+	int	row;
+	int	col;
+
+	row = 0;
+	printf("map row: %i\n", map.row);
+	while (map.map[row])
+	{
+		col = 0;
+		while (map.map[row][col])
+		{
+			if (row == 0)
+			{
+				if ((map.map[row][col] != '1' && map.map[row][col] != ' ')
+					|| (map.map[row][col] == ' ' && (map.map[row + 1][col] != ' '
+					&& map.map[row + 1][col] != '1')))
+					ft_puterror("Invalid map!.\n");
+			}
+			else if (row == map.row - 1)
+			{
+				printf("map[%i][%i]: %c\n", row, col, map.map[row][col]);
+				if (map.map[row][col] != '1'
+					&& map.map[row][col] != ' ')
+					ft_puterror("Invalid map!.\n");
+			}
+			// else if ()
+			col++;
+		}
+		row++;
+	}
+}
+
 void	parse_map(t_program *ptr)
 {
 	if (check_extention(ptr->map.filename, ".cub")
@@ -301,6 +334,7 @@ void	parse_map(t_program *ptr)
 	get_cub_content(ptr);
 	get_map(ptr);
 	check_map(ptr->map.map);
+	check_map_full(ptr->map);
 	get_map_textures(ptr);
 	get_colors(ptr);
 	get_colors(ptr);
