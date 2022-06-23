@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:13:41 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/09 10:08:59 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/23 09:58:33 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,10 @@ void	get_map_textures(t_program *game_ptr);
 void	get_colors(t_program *ptr);
 void	get_map(t_program *ptr);
 void	parse_map(t_program *ptr);
+int		check_north_wall(char **map, int row, int col);
+int		check_south_wall(char **map, int row, int col);
+int		check_east_wall(char **map, int row, int col);
+int		check_west_wall(char **map, int row);
 
 /* ---- Init Functions ---- */
 void	init_map(t_map *map);
