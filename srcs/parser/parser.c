@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 06:36:12 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/23 10:16:37 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/25 12:59:14 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,18 +308,20 @@ void	check_map_full(t_map map)
 				|| (row == map.row - 1 && check_south_wall(map.map, row, col)))
 				ft_puterror("Invalid map!.\n");
 			else if (col == 0 && check_west_wall(map.map, row))
-int		check_east_wall(char **map, int row);
 				ft_puterror("Invalid map!.\n");
-			else if (col == ft_strlen(map.map[row])
+			else if (col == ft_strlen(map.map[row]) - 1
 				&& check_east_wall(map.map, row, col))
 				ft_puterror("Invalid map!.\n");
-			else if (row != 0 && row != map.row - 1
-				&& col != 0 && col != ft_strlen(map.map[row]))
+			else if ((row > 0 && row < map.row - 1)
+				&& (col > 0 && col < ft_strlen(map.map[row]) - 1))
 			{
 				if (map.map[row][col] == '0'
-					&& (map.map[row - 1][col] == ' ' || map.map[row + 1][col] == ' '
-					|| map.map[row][col - 1] == ' ' || map.map[row][col + 1]))
+					&& (map.map[row + 1][col] == ' ' || map.map[row - 1][col] == ' '
+					|| map.map[row][col + 1] == ' ' || map.map[row][col - 1] == ' '))
+				{
+					printf("space\n");
 					ft_puterror("Invalid map!.\n");
+				}
 			}
 			col++;
 		}

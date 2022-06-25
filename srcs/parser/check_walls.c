@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 09:05:03 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/23 09:56:36 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/25 12:45:00 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,3 @@ int	check_east_wall(char **map, int row, int col)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
-/*
-int	check_east_wall(char **map, int row, int col)
-{
-
-}
-*/
