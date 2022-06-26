@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 11:16:32 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/26 11:21:10 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/26 16:32:37 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,8 @@ void	get_map_textures(t_program *game_ptr)
 	int		i;
 
 	i = 0;
-	while (game_ptr->cub_content[i])
+	while (i < 4)
 	{
-		if (game_ptr->cub_content[i][0] == '1'
-				|| game_ptr->cub_content[i][0] == ' '
-				|| game_ptr->cub_content[i][0] == '0')
-			break ;
 		splited = ft_split(game_ptr->cub_content[i++], ", \n");
 		if (!splited[0])
 			return ;
@@ -79,6 +75,7 @@ void	get_map(t_program *ptr)
 	j = 0;
 	ptr->map.row = get_map_len(ptr);
 	ptr->map.map = malloc(sizeof(char *) * (ptr->map.row + 1));
+	ptr->map.col = 0;
 	if (!ptr->map.map)
 		ft_puterror("Malloc Error: parser.c: 201\n");
 	while (ptr->cub_content[i])
@@ -90,6 +87,8 @@ void	get_map(t_program *ptr)
 			ptr->map.map[j++] = ft_strndup(ptr->cub_content[i],
 					ft_strlen(ptr->cub_content[i]) - \
 					check_new_line(ptr->cub_content[i]));
+			if (ptr->map.col < ft_strlen(ptr->map.map[j - 1]))
+				ptr->map.col = ft_strlen(ptr->map.map[j - 1]);
 		}
 		i++;
 	}

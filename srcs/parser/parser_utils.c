@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 10:41:56 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/26 11:21:50 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/26 16:33:32 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_map(t_map	map)
 	printf("---------------------- MAP --------------------------\n");
 	while (map.map[++i])
 		printf("map[%i]: %s\n", i, map.map[i]);
-	printf("map's lines: %i\n", map.row);
+	printf("Map's Lines: %i, Col: %i\n", map.row, map.col);
 	printf("---------------------- TEXTURE ----------------------\n");
 	printf("NO: %s\n", map.north_texture);
 	printf("SO: %s\n", map.south_texture);

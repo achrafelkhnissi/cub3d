@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 11:20:21 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/26 11:23:20 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/26 16:37:07 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,7 @@ void	get_cub_content(t_program *ptr)
 	close(fd);
 }
 
-int	check_extention(char *src, char *to_find)
-{
-	int	i;
-	int	j;
 
-	i = 0;
-	j = ft_strlen(src) - ft_strlen(to_find);
-	while ((src[j] && to_find[i])
-		&& (src[j++] == to_find[i++]))
-		;
-	if (j == ft_strlen(src))
-		return (EXIT_SUCCESS);
-	return (EXIT_FAILURE);
-}
 
 void	parse_map(t_program *ptr)
 {
@@ -57,11 +44,12 @@ void	parse_map(t_program *ptr)
 		== EXIT_FAILURE)
 		ft_puterror("Wrong extention.\n");
 	get_cub_content(ptr);
-	get_map(ptr);
-	check_map(ptr->map.map);
-	check_map_full(ptr->map);
+	check_cub_content(ptr->cub_content);
 	get_map_textures(ptr);
 	get_colors(ptr);
-	get_colors(ptr);
+	get_map(ptr);
 	get_player_pos(&ptr->map);
+	check_map(ptr->map.map);
+	check_map_full(ptr->map);
+	print_map(ptr->map);
 }

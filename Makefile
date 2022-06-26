@@ -23,9 +23,9 @@ OBJDIR = .objFiles
 
 INIT		= $(addprefix init/, map_init)
 PARSER		= $(addprefix parser/, parser check_map check_walls parser_utils \
-					get_data)
+					get_data check_cub)
 UTILS		= $(addprefix utils/, gnl ft_strlen ft_strdup ft_strndup ft_split \
-					ft_puterror ft_strcmp ft_itoa ft_atoi)
+					ft_puterror ft_strcmp ft_strncmp ft_itoa ft_atoi)
 # DDA			= $(addprefix DDA/, luncher)
 FILES		= $(addprefix srcs/, cub3d $(PARSER) $(UTILS) $(DDA) $(INIT))
 #OBJFILES		= $(addprefix .objFiles/, cub3d $(UTILS))

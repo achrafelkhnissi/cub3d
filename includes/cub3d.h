@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:13:41 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/26 11:19:09 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/26 16:38:45 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_map
 {
 	char		**map;
 	int			row;
+	int			col;
 	char		*north_texture;
 	char		*south_texture;
 	char		*west_texture;
@@ -123,6 +124,7 @@ char	*get_next_line(int fd);
 int		ft_strlen(char *str);
 char	*ft_strdup(char *s1);
 int		ft_strcmp(char *s1, char *s2);
+int		ft_strncmp(char *s1, char *s2, int n);
 char	**ft_split(char *str, char *sap);
 char	*ft_itoa(int n);
 int		ft_atoi(const char *str);
@@ -132,6 +134,7 @@ void	ft_puterror(char *msg);
 /* ---- Parser Functions ---- */
 int		nbr_of_lines(char *filename);
 void	get_cub_content(t_program *ptr);
+void	check_cub_content(char **content);
 void	print_map(t_map map);
 void	get_map_textures(t_program *game_ptr);
 void	get_rgb(t_color *color, char **str);
@@ -153,6 +156,10 @@ void	check_map_full(t_map map);
 int		in_charset(char c, char *set);
 int		check_new_line(char *str);
 void	free_split(char **tab);
+int		check_extention(char *src, char *to_find);
+void	check_cub_texture(char **content, int *i);
+void	check_cub_colors(char **content, int *i);
+void	check_cub_content(char **content);
 
 /* ---- Init Functions ---- */
 void	init_map(t_map *map);
