@@ -22,7 +22,8 @@ LIBMLX		= -L /usr/local/lib
 OBJDIR = .objFiles
 
 INIT		= $(addprefix init/, map_init)
-PARSER		= $(addprefix parser/, parser check_walls)
+PARSER		= $(addprefix parser/, parser check_map check_walls parser_utils \
+					get_data)
 UTILS		= $(addprefix utils/, gnl ft_strlen ft_strdup ft_strndup ft_split \
 					ft_puterror ft_strcmp ft_itoa ft_atoi)
 # DDA			= $(addprefix DDA/, luncher)

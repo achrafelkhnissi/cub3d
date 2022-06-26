@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:13:41 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/23 09:58:33 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/26 11:19:09 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,13 +134,25 @@ int		nbr_of_lines(char *filename);
 void	get_cub_content(t_program *ptr);
 void	print_map(t_map map);
 void	get_map_textures(t_program *game_ptr);
+void	get_rgb(t_color *color, char **str);
 void	get_colors(t_program *ptr);
 void	get_map(t_program *ptr);
+int		get_map_len(t_program *ptr);
+void	get_player_pos(t_map *map);
 void	parse_map(t_program *ptr);
 int		check_north_wall(char **map, int row, int col);
 int		check_south_wall(char **map, int row, int col);
 int		check_east_wall(char **map, int row, int col);
 int		check_west_wall(char **map, int row);
+int		check_wall(char **map, int row, int col);
+int		check_extended_wall(char **map, int row);
+int		check_player_surroundings(char **map, int row, int col);
+void	check_map(char **map);
+void	map_checks_(t_map map, int row, int col);
+void	check_map_full(t_map map);
+int		in_charset(char c, char *set);
+int		check_new_line(char *str);
+void	free_split(char **tab);
 
 /* ---- Init Functions ---- */
 void	init_map(t_map *map);
