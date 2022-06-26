@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 16:36:38 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/26 16:37:12 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/26 16:44:35 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	check_cub_texture(char **content, int *i)
 		ft_puterror("Texture error!\n");
 	if (*i == 0)
 		ft_puterror("Empty .cub file!\n");
-
 }
 
 void	check_cub_colors(char **content, int *i)
