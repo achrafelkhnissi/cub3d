@@ -6,17 +6,19 @@
 /*   By: fathjami <fathjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:13:41 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/22 17:07:37 by fathjami         ###   ########.fr       */
+/*   Updated: 2022/06/26 14:02:31 by fathjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+#define texWidth 64
+#define texHeight 64
 #define mapWidth 24
 #define mapHeight 24
-#define screenWidth 640
-#define screenHeight 480
+#define screenWidth 1024
+#define screenHeight 1024
 
 
 # include <stdlib.h>
@@ -99,7 +101,7 @@ typedef struct s_program
 	void		*img_ptr;
 	int			img_len;
 	int			img_bpp;
-	char		*img_arr;
+	int			*img_arr;
 	// char		*img_pixel;
 	char		**cub_content;
 	t_map		map;
