@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fathjami <fathjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 11:39:12 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/16 16:18:54 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/27 18:01:21 by fathjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,44 +71,16 @@ int	ft_close(t_program *game)
 
 void	ft_new_window(t_program *game)
 {
-	game->win_ptr = mlx_new_window(game->mlx, screenWidth, screenHeight, "cub3D");
+	game->win_ptr = mlx_new_window(game->mlx, game->screen_w, game->screen_h, "cub3D");
 	mlx_hook(game->win_ptr, WIN_CLOSE, 0, ft_close, game);
 }
 
-int	rgb_to_int(int r, int g, int b)
+int	rgb_to_int(t_color color)
 {
-	return ((r << 16) | (g << 8) | b);
+	return ((color.r << 16) | (color.g << 8) | color.b);
 }
 
-void	drawCeiling(t_program game)
-{
-	int	i;
-	int	y;
 
-	i = 0;
-	while (i < screenHeight / 2)
-	{
-		y = 0;
-		while (y < screenWidth)
-			mlx_pixel_put(game.mlx, game.win_ptr, y++, i, rgb_to_int(105, 105, 105));
-		i++;
-	}
-}
-
-void	drawFloor(t_program game)
-{
-	int	i;
-	int	y;
-
-	i = (screenHeight / 2);
-	while (i < screenHeight)
-	{
-		y = 0;
-		while (y < screenWidth)
-			mlx_pixel_put(game.mlx, game.win_ptr, y++, i, rgb_to_int(192, 192, 192));
-		i++;
-	}
-}
 
 int	main(int ac, char **av)
 {
@@ -119,16 +91,10 @@ int	main(int ac, char **av)
 	init_game(&game_ptr);
 	game_ptr.map.filename = ft_strdup(av[1]); // TODO: free
 	parse_map(&game_ptr);
-	// print_map(game_ptr.map);
-	/*
-	gamePtr.screen_h = 480;
-	gamePtr.screen_w = 640;
-	gamePtr.mlx = mlx_init();
-	ft_new_window(&gamePtr);
-	drawCeiling(gamePtr);
-	drawFloor(gamePtr);
-	mlx_loop_hook(gamePtr.mlx, lunch_game, &gamePtr);
-	mlx_loop(gamePtr.mlx);
-	*/
+	start_game(&game_ptr);
+	mlx_hook (game_ptr.win_ptr, 2, 0, &press, &game_ptr);
+	mlx_hook (game_ptr.win_ptr, 3, 0, &release, &game_ptr);
+	mlx_loop_hook(game_ptr.mlx, lunch_game, &game_ptr);
+	mlx_loop(game_ptr.mlx);
 	return (0);
 }

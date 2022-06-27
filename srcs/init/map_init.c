@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fathjami <fathjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:25:04 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/27 12:42:57 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/27 19:05:00 by fathjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,41 +35,53 @@ void	init_map(t_map *map)
 	map->player.y = 0;
 }
 
-void	init_game_ext(t_program *game)
-{
-	game->line_height = -1;
-	game->draw_end = -1;
-	game->draw_end = -1;
-	game->pos_x = -1;
-	game->pos_y = -1;
-	game->dir_x = -1;
-	game->dir_y = -1;
-	game->plane_x = -1;
-	game->plane_y = -1;
-	game->camera_x = -1;
-	game->raydir_x = -1;
-	game->raydir_x = -1;
-	game->delta_dist_x = -1;
-	game->delta_dist_y = -1;
-	game->side_dist_x = -1;
-	game->side_dist_x = -1;
-	game->perp_wall_dist = -1;
-}
-
 void	init_game(t_program *game)
 {
 	init_map(&game->map);
-	game->mlx = NULL;
-	game->win_ptr = NULL;
-	game->img_ptr = NULL;
+	game->mlx = mlx_init();
 	game->cub_content = NULL;
-	game->screen_h = -1;
-	game->screen_w = -1;
-	game->step_x = -1;
-	game->step_y = -1;
-	game->hit = -1;
-	game->side = -1;
-	game->map_x = -1;
-	game->map_y = -1;
-	init_game_ext(game);
+	game->screen_h = 1024;
+	game->screen_w = 1024;
+	game->x = 0;
+	ft_new_window(game);
+	game->img.ptr = mlx_new_image(game->mlx, game->screen_w, game->screen_h);
+	game->img.arr = (int *)mlx_get_data_addr(game->img.ptr, &(game->img.bpp), &(game->img.len), &(game->img.endian));
+}
+
+void	start_game(t_program *game)
+{
+	game->r_angle = 0.2;
+	game->m_speed = 0.4;
+	game->plane_x = 0.0;
+	game->plane_y = 0.66;
+	game->pos_x = game->map.player.x;
+	game->pos_y = game->map.player.y;
+	if (game->map.starting_pos == 'N')
+	{
+		game->dir_x = -1.0;
+		game->dir_y = 0.0;
+		game->plane_x = 0.0;
+		game->plane_y = 0.66;
+	}
+		if (game->map.starting_pos == 'S')
+	{
+		game->dir_x = 1.0;
+		game->dir_y = 0.0;
+		game->plane_x = 0.0;
+		game->plane_y = -0.66;
+	}
+		if (game->map.starting_pos == 'E')
+	{
+		game->dir_x = 0.0;
+		game->dir_y = 1.0;
+		game->plane_x = 0.66;
+		game->plane_y = 0.0;
+	}
+		if (game->map.starting_pos == 'W')
+	{
+		game->dir_x = 0.0;
+		game->dir_y = -1.0;
+		game->plane_x = -0.66;
+		game->plane_y = 0.0;
+	}
 }

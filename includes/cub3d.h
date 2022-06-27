@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fathjami <fathjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:13:41 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/26 16:38:45 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/27 19:19:45 by fathjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,18 @@
 # include <fcntl.h>
 # include <sys/errno.h>
 # include <string.h>
+# include <math.h>
 # include "mlx.h"
 
 # define EQUAL 0
 
 /* -------- KEY VALUES -------- */
-# define RIGHT_KEY 2
-# define LEFT_KEY 0
-# define DOWN_KEY 1
-# define UP_KEY 13
+# define RIGHT_M 2
+# define LEFT_M 0
+# define DOWN_M 1
+# define UP_M 13
+# define RIGHT_R 124
+# define LEFT_R 123
 # define ESC_KEY 53
 # define WIN_CLOSE 17
 
@@ -83,24 +86,25 @@ typedef struct s_map
 	t_vector	player;
 }	t_map;
 
+typedef struct s_img
+{
+	void	*ptr;
+	int		len;
+	int 	bpp;
+	int		endian;
+	int		*arr;
+	int		width;
+	int		height;
+}	t_img;
+
 typedef struct s_program
 {
 	void		*mlx;
 	void		*win_ptr;
-	void		*img_ptr;
 	char		**cub_content;
 	t_map		map;
-	int			screen_w;
-	int			screen_h;
-	int			step_x;
-	int			step_y;
-	int			hit;
-	int			side;
-	int			map_x;
-	int			map_y;
-	int			line_height;
-	int			draw_start;
-	int			draw_end;
+	t_img		img;
+	t_img		tex;
 	double		pos_x;
 	double		pos_y;
 	double		dir_x;
@@ -115,6 +119,32 @@ typedef struct s_program
 	double		side_dist_x;
 	double		side_dist_y;
 	double		perp_wall_dist;
+	double		m_speed;
+	double		r_angle;
+	double		wallx;
+	int			r_right;
+	int			m_right;
+	int			r_left;
+	int			m_left;
+	int			m_up;
+	int			m_down;
+	int			step_x;
+	int			step_y;
+	int			hit;
+	int			side;
+	int			map_x;
+	int			map_y;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+	int			x;
+	int			tex_x;
+	int			tex_y;
+	int			tex_pos;
+	int			tex_step;
+	int			screen_w;
+	int			screen_h;
+	
 }				t_program;
 
 int		lunch_game(void *ptr);
@@ -165,4 +195,26 @@ void	check_cub_content(char **content);
 void	init_map(t_map *map);
 void	init_game(t_program *game);
 
+//free
+void	ft_free(t_program *game, char *msg);
+int	ft_close(t_program *game);
+
+
+/* ---- KEY_HOOKS Functions ---- */
+int press(int key, t_program* game_ptr);
+int release(int key, t_program* game_ptr);
+void	move(t_program* game_ptr);
+
+/* ---- MOVES Functions ---- */
+void	rotate(t_program *game_ptr, double angle);
+void	forword(t_program * game_ptr);
+void	backword(t_program * game_ptr);
+void	right(t_program * game_ptr);
+void	left(t_program * game_ptr);
+
+void	start_game(t_program *game);
+
+void draw_floor_ceiling(t_program *game_ptr);
+int	rgb_to_int(t_color color);
+void	ft_new_window(t_program *game);
 #endif
