@@ -6,7 +6,7 @@
 /*   By: fathjami <fathjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:13:41 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/27 19:19:45 by fathjami         ###   ########.fr       */
+/*   Updated: 2022/06/27 20:57:19 by fathjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,8 @@ typedef struct s_program
 	int			x;
 	int			tex_x;
 	int			tex_y;
-	int			tex_pos;
-	int			tex_step;
+	double			tex_pos;
+	double			tex_step;
 	int			screen_w;
 	int			screen_h;
 	

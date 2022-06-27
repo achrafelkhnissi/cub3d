@@ -1,10 +1,10 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO textures/wood.xpm
+SO textures/w.xpm
+WE textures/black-1.xpm
+EA textures/datacenter.xpm
 
-F 220,100,0
-C 225,30,0
+F 108,88,108
+C 53,168,230
 
         1111111111111111111111111
         100000000011000000000001

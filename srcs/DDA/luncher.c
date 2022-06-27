@@ -31,8 +31,6 @@ void	init_draw_var(t_program *game_ptr)
 		game_ptr->raydir_y = game_ptr->dir_y + game_ptr->plane_y * game_ptr->camera_x;
 		game_ptr->map_x = (int)game_ptr->pos_x;
 		game_ptr->map_y = (int)game_ptr->pos_y;
-		printf("px: %f, py: %f\n", game_ptr->pos_x, game_ptr->pos_y);
-		printf("x: %i, y: %i\n", game_ptr->map_x, game_ptr->map_y);
 		game_ptr->delta_dist_x = sqrt(1 + pow(game_ptr->raydir_y, 2) / pow(game_ptr->raydir_x, 2));
 		game_ptr->delta_dist_y = sqrt(1 + pow(game_ptr->raydir_x, 2) / pow(game_ptr->raydir_y, 2));
 		game_ptr->hit = 0;
@@ -82,18 +80,18 @@ void	calc_distance(t_program *game_ptr)
 void	get_tex(t_program *game_ptr)
 {
 	if (game_ptr->side == 0 && game_ptr->step_x == -1)
-		game_ptr->tex.ptr = mlx_xpm_file_to_image(game_ptr->mlx, "textures/wood.xpm", &game_ptr->tex.width, &game_ptr->tex.height);
+		game_ptr->tex.ptr = mlx_xpm_file_to_image(game_ptr->mlx, game_ptr->map.north_texture, &game_ptr->tex.width, &game_ptr->tex.height);
 	if (game_ptr->side == 0 && game_ptr->step_x == 1)
-		game_ptr->tex.ptr = mlx_xpm_file_to_image(game_ptr->mlx, "textures/w.xpm", &game_ptr->tex.width, &game_ptr->tex.height);
+		game_ptr->tex.ptr = mlx_xpm_file_to_image(game_ptr->mlx, game_ptr->map.south_texture, &game_ptr->tex.width, &game_ptr->tex.height);
 	if (game_ptr->side == 1 && game_ptr->step_y == -1)
-		game_ptr->tex.ptr = mlx_xpm_file_to_image(game_ptr->mlx, "textures/black-1.xpm", &game_ptr->tex.width, &game_ptr->tex.height);
+		game_ptr->tex.ptr = mlx_xpm_file_to_image(game_ptr->mlx, game_ptr->map.west_texture, &game_ptr->tex.width, &game_ptr->tex.height);
 	if (game_ptr->side == 1 && game_ptr->step_y == 1)
-		game_ptr->tex.ptr = mlx_xpm_file_to_image(game_ptr->mlx, "textures/datacenter.xpm", &game_ptr->tex.width, &game_ptr->tex.height);
+		game_ptr->tex.ptr = mlx_xpm_file_to_image(game_ptr->mlx, game_ptr->map.east_texture, &game_ptr->tex.width, &game_ptr->tex.height);
+	game_ptr->tex.arr = (int *)mlx_get_data_addr(game_ptr->tex.ptr, &game_ptr->tex.len, &game_ptr->tex.bpp, &game_ptr->tex.endian);
 }
 
 void	init_tex(t_program *game_ptr)
 {
-	game_ptr->tex.arr = (int *)mlx_get_data_addr(game_ptr->tex.ptr, &game_ptr->tex.len, &game_ptr->tex.bpp, &game_ptr->tex.endian);
 	if (game_ptr->side == 0)
 		game_ptr->wallx = game_ptr->pos_y + game_ptr->perp_wall_dist * game_ptr->raydir_y;
 	else
@@ -119,7 +117,7 @@ void	put_tex(t_program *game_ptr)
 		int color = game_ptr->tex.arr[game_ptr->tex.height * game_ptr->tex_y  + game_ptr->tex_x];
 		if (game_ptr->side == 1)
 		 	color = (color >> 1) & 8355711;
-		 *pixel = color;	
+		*pixel = color;
 		y++;	  
 	}
 }
