@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fathjami <fathjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:25:04 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/27 19:05:00 by fathjami         ###   ########.fr       */
+/*   Updated: 2022/06/27 21:35:59 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,26 @@ void	init_game(t_program *game)
 	game->x = 0;
 	ft_new_window(game);
 	game->img.ptr = mlx_new_image(game->mlx, game->screen_w, game->screen_h);
-	game->img.arr = (int *)mlx_get_data_addr(game->img.ptr, &(game->img.bpp), &(game->img.len), &(game->img.endian));
+	game->img.arr = (int *)mlx_get_data_addr(game->img.ptr, &(game->img.bpp), \
+		&(game->img.len), &(game->img.endian));
+}
+
+void	ext_start_game(t_program *game)
+{
+	if (game->map.starting_pos == 'E')
+	{
+		game->dir_x = 0.0;
+		game->dir_y = 1.0;
+		game->plane_x = 0.66;
+		game->plane_y = 0.0;
+	}
+	if (game->map.starting_pos == 'W')
+	{
+		game->dir_x = 0.0;
+		game->dir_y = -1.0;
+		game->plane_x = -0.66;
+		game->plane_y = 0.0;
+	}
 }
 
 void	start_game(t_program *game)
@@ -63,25 +82,12 @@ void	start_game(t_program *game)
 		game->plane_x = 0.0;
 		game->plane_y = 0.66;
 	}
-		if (game->map.starting_pos == 'S')
+	if (game->map.starting_pos == 'S')
 	{
 		game->dir_x = 1.0;
 		game->dir_y = 0.0;
 		game->plane_x = 0.0;
 		game->plane_y = -0.66;
 	}
-		if (game->map.starting_pos == 'E')
-	{
-		game->dir_x = 0.0;
-		game->dir_y = 1.0;
-		game->plane_x = 0.66;
-		game->plane_y = 0.0;
-	}
-		if (game->map.starting_pos == 'W')
-	{
-		game->dir_x = 0.0;
-		game->dir_y = -1.0;
-		game->plane_x = -0.66;
-		game->plane_y = 0.0;
-	}
+	ext_start_game(game);
 }

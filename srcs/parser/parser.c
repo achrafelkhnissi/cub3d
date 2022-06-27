@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 11:20:21 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/26 16:44:47 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/27 21:46:14 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,4 @@ void	parse_map(t_program *ptr)
 	get_player_pos(&ptr->map);
 	check_map(ptr->map.map);
 	check_map_full(ptr->map);
-	print_map(ptr->map);
 }

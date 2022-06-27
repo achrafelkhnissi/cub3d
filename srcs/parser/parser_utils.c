@@ -6,36 +6,11 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 10:41:56 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/26 16:33:32 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/27 21:29:50 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	print_map(t_map	map)
-{
-	int	i;
-
-	i = -1;
-	printf("---------------------- MAP --------------------------\n");
-	while (map.map[++i])
-		printf("map[%i]: %s\n", i, map.map[i]);
-	printf("Map's Lines: %i, Col: %i\n", map.row, map.col);
-	printf("---------------------- TEXTURE ----------------------\n");
-	printf("NO: %s\n", map.north_texture);
-	printf("SO: %s\n", map.south_texture);
-	printf("EA: %s\n", map.east_texture);
-	printf("WE: %s\n", map.west_texture);
-	printf("---------------------- COLORS -----------------------\n");
-	printf("floor: %i, %i, %i\n", map.floor_color.r, map.floor_color.g, map.floor_color.b);
-	printf("ceilling: %i, %i, %i\n", map.ceilling_color.r, map.ceilling_color.g, map.ceilling_color.b);
-	printf("---------------------- PLAYSR ----------------------\n");
-	printf("Player position: x: %i, y: %i\n", map.player.x, map.player.y);
-	printf("Starting position: %c\n", map.starting_pos);
-	printf("---------------------- FILE -------------------------\n");
-	printf("Filename: %s\n", map.filename);
-	printf("-----------------------------------------------------\n");
-}
 
 int	nbr_of_lines(char *filename)
 {

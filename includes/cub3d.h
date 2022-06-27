@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fathjami <fathjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:13:41 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/27 20:57:19 by fathjami         ###   ########.fr       */
+/*   Updated: 2022/06/27 21:43:05 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct s_map
 	char		*south_texture;
 	char		*west_texture;
 	char		*east_texture;
-	char		*filename; // temp
+	char		*filename;
 	char		starting_pos;
 	t_color		floor_color;
 	t_color		ceilling_color;
@@ -90,7 +90,7 @@ typedef struct s_img
 {
 	void	*ptr;
 	int		len;
-	int 	bpp;
+	int		bpp;
 	int		endian;
 	int		*arr;
 	int		width;
@@ -122,6 +122,8 @@ typedef struct s_program
 	double		m_speed;
 	double		r_angle;
 	double		wallx;
+	double		tex_pos;
+	double		tex_step;
 	int			r_right;
 	int			m_right;
 	int			r_left;
@@ -140,11 +142,8 @@ typedef struct s_program
 	int			x;
 	int			tex_x;
 	int			tex_y;
-	double			tex_pos;
-	double			tex_step;
 	int			screen_w;
 	int			screen_h;
-	
 }				t_program;
 
 int		lunch_game(void *ptr);
@@ -197,24 +196,33 @@ void	init_game(t_program *game);
 
 //free
 void	ft_free(t_program *game, char *msg);
-int	ft_close(t_program *game);
-
+int		ft_close(t_program *game);
 
 /* ---- KEY_HOOKS Functions ---- */
-int press(int key, t_program* game_ptr);
-int release(int key, t_program* game_ptr);
-void	move(t_program* game_ptr);
+int		press(int key, t_program *game_ptr);
+int		release(int key, t_program *game_ptr);
+void	move(t_program *game_ptr);
 
 /* ---- MOVES Functions ---- */
 void	rotate(t_program *game_ptr, double angle);
-void	forword(t_program * game_ptr);
-void	backword(t_program * game_ptr);
-void	right(t_program * game_ptr);
-void	left(t_program * game_ptr);
+void	forword(t_program *game_ptr);
+void	backword(t_program *game_ptr);
+void	right(t_program *game_ptr);
+void	left(t_program *game_ptr);
 
 void	start_game(t_program *game);
 
-void draw_floor_ceiling(t_program *game_ptr);
-int	rgb_to_int(t_color color);
+void	draw_floor_ceiling(t_program *game_ptr);
+void	init_draw_var(t_program *game_ptr);
+void	raycast(t_program *game_ptr);
+void	calc_distance(t_program *game_ptr);
+int		rgb_to_int(t_color color);
 void	ft_new_window(t_program *game);
+void	draw(t_program *game_ptr);
+
+/* ---- TEX Functions ---- */
+void	get_tex(t_program *game_ptr);
+void	init_tex(t_program *game_ptr);
+void	put_tex(t_program *game_ptr);
+
 #endif
