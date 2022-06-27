@@ -1,9 +1,9 @@
-NO textures/wood.xpm
-SO textures/w.xpm
-WE textures/black-1.xpm
-EA textures/datacenter.xpm
+NO textures/wood0.xpm
+SO textures/wood1.xpm
+WE textures/wood2.xpm
+EA textures/wood3.xpm
 
-F 108,88,108
+F 81,41,28
 C 53,168,230
 
 111111111111111

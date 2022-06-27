@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fathjami <fathjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 11:16:32 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/26 16:32:37 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/27 22:08:48 by fathjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ void	get_map_textures(t_program *game_ptr)
 			game_ptr->map.west_texture = ft_strdup(splited[1]);
 		free_split(splited);
 	}
+	if (open(game_ptr->map.north_texture, O_RDONLY) < 0
+		|| open(game_ptr->map.south_texture, O_RDONLY) < 0
+		|| open(game_ptr->map.east_texture, O_RDONLY) < 0
+		|| open(game_ptr->map.west_texture, O_RDONLY) < 0)
+		ft_puterror("Texture doesn't exist!\n");
 }
 
 void	get_rgb(t_color *color, char **str)
