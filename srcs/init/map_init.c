@@ -6,7 +6,7 @@
 /*   By: ael-khni <ael-khni@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:25:04 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/06/09 09:22:01 by ael-khni         ###   ########.fr       */
+/*   Updated: 2022/06/27 12:42:57 by ael-khni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,27 @@ void	init_map(t_map *map)
 	map->player.y = 0;
 }
 
+void	init_game_ext(t_program *game)
+{
+	game->line_height = -1;
+	game->draw_end = -1;
+	game->draw_end = -1;
+	game->pos_x = -1;
+	game->pos_y = -1;
+	game->dir_x = -1;
+	game->dir_y = -1;
+	game->plane_x = -1;
+	game->plane_y = -1;
+	game->camera_x = -1;
+	game->raydir_x = -1;
+	game->raydir_x = -1;
+	game->delta_dist_x = -1;
+	game->delta_dist_y = -1;
+	game->side_dist_x = -1;
+	game->side_dist_x = -1;
+	game->perp_wall_dist = -1;
+}
+
 void	init_game(t_program *game)
 {
 	init_map(&game->map);
@@ -42,29 +63,13 @@ void	init_game(t_program *game)
 	game->win_ptr = NULL;
 	game->img_ptr = NULL;
 	game->cub_content = NULL;
-	game->screen_h = 0;
-	game->screen_w = 0;
-	game->step_x = 0;
-	game->step_y = 0;
-	game->hit = 0;
-	game->side = 0;
-	game->map_x = 0;
-	game->map_y = 0;
-	game->line_height = 0;
-	game->draw_end = 0;
-	game->draw_end = 0;
-	game->pos_x = 0;
-	game->pos_y = 0;
-	game->dir_x = 0;
-	game->dir_y = 0;
-	game->plane_x = 0;
-	game->plane_y = 0;
-	game->camera_x = 0;
-	game->raydir_x = 0;
-	game->raydir_x = 0;
-	game->delta_dist_x = 0;
-	game->delta_dist_y = 0;
-	game->side_dist_x = 0;
-	game->side_dist_x = 0;
-	game->perp_wall_dist = 0;
+	game->screen_h = -1;
+	game->screen_w = -1;
+	game->step_x = -1;
+	game->step_y = -1;
+	game->hit = -1;
+	game->side = -1;
+	game->map_x = -1;
+	game->map_y = -1;
+	init_game_ext(game);
 }
