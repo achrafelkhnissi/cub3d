@@ -14,11 +14,11 @@
 </p>
 
 <h3 align="center">
-	<a href="#%EF%B8%8F-about">About</a>
+	<a href="#about">About</a>
 	<span> · </span>
-	<a href="#-index">Index</a>
+	<a href="#index">Index</a>
   <span> · </span>
-	<a href="#-resources">Resources</a>
+	<a href="#resources">Resources</a>
 </h3>
 
 ## 🗣️ About
