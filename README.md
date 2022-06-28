@@ -23,7 +23,7 @@
 
 ## 🗣️ About
 
-> is project is inspired by the world-famous Wolfenstein 3D game, which﻿was the first FPS ever. The goal of this project was to enable us to explore ray-casting. Our goal is to make a dynamic view inside a maze, in which we'll have to find our way.
+> *cub3D* is project is inspired by the world-famous Wolfenstein 3D game, which﻿was the first FPS ever. The goal of this project was to enable us to explore ray-casting. Our goal is to make a dynamic view inside a maze, in which we'll have to find our way.
 
 ## Resources
 - [Raycasting - PART 1](https://lodev.org/cgtutor/raycasting.html)
